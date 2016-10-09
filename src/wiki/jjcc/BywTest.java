@@ -4,8 +4,7 @@ public class BywTest {
 
 	public static void main(String[] args) {
 		System.out.println("我是帅哥");
-		//这是一个测试
-		//无言独上西楼
+		
 	}
 
 }
