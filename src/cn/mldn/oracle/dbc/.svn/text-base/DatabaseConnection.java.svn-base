@@ -1,0 +1,48 @@
+package cn.mldn.oracle.dbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+/**
+ * 本类负责Oracle数据库的连接与打开操作处理
+ * 一旦实例化本类对象，将自动取得相对应的数据库连接
+ * @author mldn
+ */
+public class DatabaseConnection {
+	private static final String DBDRIVER = "oracle.jdbc.driver.OracleDriver" ;
+	private static final String DBURL = "jdbc:oracle:thin:@localhost:1521:MLDN" ;
+	private static final String DBUSER = "scott" ;
+	private static final String PASSWORD = "tiger" ;
+	private Connection conn ;
+	/**
+	 * 负责数据库的连接控制
+	 */
+	public DatabaseConnection() {
+		try {
+			Class.forName(DBDRIVER) ;
+			this.conn = DriverManager.getConnection(DBURL, DBUSER, PASSWORD) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 取得Connection的实例化对象
+	 * @return Connection的实例化对象，如果连接失败返回null
+	 */
+	public Connection getConnection() {
+		return this.conn ;
+	}
+	/**
+	 * 负责关闭数据库连接
+	 */
+	public void close() {
+		if (this.conn != null) {	// 避免NullPointerException
+			try {
+				this.conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
